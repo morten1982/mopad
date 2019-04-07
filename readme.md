@@ -1,7 +1,7 @@
 # MoPad
 Python tkinter Codeeditor
 
-![alt text](https://github.com/morten1982/crossCobra/blob/master/images/mopad-git.png)
+![alt text](https://github.com/morten1982/mopad/blob/master/images/mopad-git.png)
 
 # Description
 A Python IDE made with tkinter.
