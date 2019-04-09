@@ -27,7 +27,7 @@ class Mopad(ttk.Frame):
         
         # InterpreterFrame
         self.filebrowserFrame = FilebrowserFrame(self.parent)
-        self.filebrowserFrame2 = FilebrowserFrame(self.parent)
+        #self.filebrowserFrame2 = FilebrowserFrame(self.parent)
         #self.filebrowserFrame.pack(side='left', fill='y')
 
         # NotebookFrame
@@ -42,7 +42,7 @@ class Mopad(ttk.Frame):
         # add to PanedWindow
         self.panedWindow.add(self.filebrowserFrame)
         self.panedWindow.add(self.notebookFrame)
-        self.panedWindow.add(self.filebrowserFrame2)
+        #self.panedWindow.add(self.filebrowserFrame2)
         
     def textPadFocus(self, event=None):
         self.notebookFrame.updateMainWindow()

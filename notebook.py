@@ -161,16 +161,21 @@ class NotebookFrame(ttk.Frame):
             if not filename:
                 return
         
-        # open file for reading
-        with open(filename, 'r') as f:
-            text = f.read()
+        try:
+            # open file for reading
+            with open(filename, 'r') as f:
+                text = f.read()
         
-        # update textPad
-        self.textPad.delete('1.0', tk.END)
-        self.textPad.insert("1.0", text)
-        self.textPad.filename = filename
-        self.textPad.tag_all_lines()
+            # update textPad
+            self.textPad.delete('1.0', tk.END)
+            self.textPad.insert("1.0", text)
+            self.textPad.filename = filename
+            self.textPad.tag_all_lines()
         
+        except Exception as e:
+            MessageDialog(self, 'Error', '\n' + str(e) + '\n')
+            return
+            
         # update tab text
         file = self.textPad.filename.split('/')[-1]
         id = self.notebook.index(self.notebook.select())
@@ -198,9 +203,13 @@ class NotebookFrame(ttk.Frame):
         if not filename:
             return
         
-        with open(filename, 'w') as f:
-            text = self.textPad.get("1.0",'end-1c')
-            f.write(text)
+        try:
+            with open(filename, 'w') as f:
+                text = self.textPad.get("1.0",'end-1c')
+                f.write(text)
+        
+        except Exception as e:
+            MessageDialog(self, 'Error', '\n' + str(e) + '\n')
         
         # update textPad
         self.textPad.filename = filename
@@ -221,9 +230,13 @@ class NotebookFrame(ttk.Frame):
         if not filename:
             return
         
-        with open(filename, 'w') as f:
-            text = self.textPad.get("1.0",'end-1c')
-            f.write(text)
+        try:
+            with open(filename, 'w') as f:
+                text = self.textPad.get("1.0",'end-1c')
+                f.write(text)
+        
+        except Exception as e:
+            MessageDialog(self, 'Error', '\n' + str(e) + '\n')
         
         # update textPad
         self.textPad.filename = filename
@@ -265,8 +278,10 @@ class NotebookFrame(ttk.Frame):
             webbrowser.open(fname)
         
         except Exception as e:
-            print(str(e))
+            MessageDialog(self, 'Error', '\n' + str(e) + '\n')
             return
+        
+        self.filebrowserFrame.refreshTree()
         
     def undo(self, event=None):
         if self.textPad:
@@ -340,6 +355,9 @@ class NotebookFrame(ttk.Frame):
         subprocess.call(interpreterCommand, shell=True)
     
     def search(self, start=None):
+        if not self.textPad:
+            return
+            
         self.textPad.tag_remove('sel', "1.0", tk.END)
         
         toFind = self.searchBox.get()
@@ -354,8 +372,7 @@ class NotebookFrame(ttk.Frame):
             self.textPad.tag_add('sel', result, end)
             self.textPad.mark_set('insert', end)
             self.textPad.see(tk.INSERT)
-            #self.textPad.focus_force()
-            self.searchBox.focus()
+            self.textPad.focus_force()
         else:
             self.textPad.mark_set('insert', '1.0')
             self.textPad.see(tk.INSERT)

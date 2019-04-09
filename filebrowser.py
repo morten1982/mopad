@@ -169,17 +169,21 @@ class FilebrowserFrame(ttk.Frame):
                 self.notebookFrame.textPad.focus()
                 #return
 
-            self.tree.config(cursor='')
-            self.tree.update()
-            #self.rightPanel.textPad.mark_set("insert", "1.0")
-            self.parent.title(filename)
-            #self.rightPanel.textPad.focus_set()
+            try:
+                self.tree.config(cursor='')
+                self.tree.update()
+                #self.rightPanel.textPad.mark_set("insert", "1.0")
+                self.parent.title(filename)
+                #self.rightPanel.textPad.focus_set()
+
             
-            # workaround 
-            # step 2
-            self.refreshTree()
-            self.tree.update()
-            self.tree.after(500, self.bindit)
+                # workaround 
+                # step 2
+                self.refreshTree()
+                self.tree.update()
+                self.tree.after(500, self.bindit)
+            except:
+                return
         
         self.refreshTree()
 
